@@ -1,0 +1,16 @@
+body{
+    background: cadetblue;
+    text-align: center;
+}
+
+.card{
+    background-color: darkcyan;
+}
+
+h1, h3{
+    font-family: Luminari;
+}
+
+label, .btn{
+    font-family: Copperplate;
+}
