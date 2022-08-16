@@ -70,7 +70,7 @@ class DOMManager {
                 `<div id = "${game._id}" class = card>
                     <div class = "card-header">
                         <h4> ${game.name}</h4>
-                        <button class = "btn btn-secondary" onclick = "DOMManager.deleteGame('${game._id}')">Delete</button>
+                        <button class = "btn btn-primary" onclick = "DOMManager.deleteGame('${game._id}')">Delete</button>
                     </div>
                     <div class = "card-body">
                         <div class = "container card">
@@ -87,12 +87,24 @@ class DOMManager {
                                 <label class="form-label" for="Avg Time">Average Game Play Time</label>
                                 <input type="text" name="Avg Time" id="${game._id}-avg-play-time" placeholder="hours/minutes">
                                 <br><br>
-                                <input class="btn btn-dark" type="button" value="Input">
+                                <input id = "${game._id}-new-stats" class="btn btn-dark form-control" type="button" onclick = "DOMManager.addStats('${game._id})">
                             </form>
                         </div>
                     </div>
-                </div>`
+                </div><br>`
             );
+
+            for(let stat of game.stats) {
+                $(`#${game._id}`).find('card-body').append(
+                    `<p>
+                        <span id = "name-${stat._id}><strong>Name: </strong> ${stat.name}</span>
+                        <span id = "rating-${stat._id}><strong>Rating: </strong> ${stat.rating}</span>
+                        <span id = "players-${stat._id}><strong>Number of Players: </strong> ${stat.noPlayers}</span>
+                        <span id = "times-${stat._id}><strong>Times Played: </strong> ${stat.timesPlayed}</span>
+                        <span id = "avg-${stat._id}><strong>Average Play Time: </strong> ${stat.avgGamePlay}</span>
+                        <button class = "btn btn-primary" onclick = "DOMManager.deleteStats('${game._id}', '${stat._id}')">Delete Stats</button>`
+                )
+            }
         }
     }
 }
