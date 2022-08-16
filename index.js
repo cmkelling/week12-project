@@ -62,6 +62,43 @@ class DOMManager {
         GameService.getAllGames().then(games => this.render(games));
     }
 
+    static createGame(name) {
+        GameService.createGame(new Game(name)).then(() => {
+            return GameService.getAllGames();
+        }).then((games) => this.render(games));
+    }
+
+    static deleteGame(id) {
+        GameService.deleteGame(id)
+        .then(() => {
+            return GameService.getAllGames();
+        })
+        .then((games) => this.render(games));
+    }
+
+    
+
+    static addStats(id) {
+        for (let game of this.games) {
+            if (game._id == id) {
+                game.stats.push(new Stats(
+                    $(`#${game._id}-name`).val(), 
+                    $(`#${game._id}-rating`).val(), 
+                    $(`#${game._id}-no-players`).val(),
+                    $(`#${game._id}-times-played`).val(),
+                    $(`#${game._id}-avg-play-time`).val(),
+                ));
+                GameService.updateGame(game).then(() => {
+                    return GameService.getAllGames();
+                }).then((games) => this.render(games));
+            }
+        }
+    }
+
+    static deleteStats(gameId, statsId) {
+
+    }
+
     static render(games) {
         this.games = games;
         $('#owned-games').empty();
@@ -108,5 +145,10 @@ class DOMManager {
         }
     }
 }
+
+$('#create-new-game').on("click", () => {
+    DOMManager.createGame($('new-game-name').val());
+    $('#new-game-name').val('');
+});
 
 DOMManager.getAllGames();
