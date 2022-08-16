@@ -20,7 +20,7 @@ class Stats {
     }
 }
 
-//test data//
+//test data//--Need Help Here
 const test = [
     {
         name: "Brew",
@@ -28,7 +28,7 @@ const test = [
     }
 ]
 
-//API usage and setting up methods for later use.
+//For Rendering?--Need Help Here
 class GameService {
     static url = 'https://boardgames.free.beeceptor.com'
 
@@ -56,7 +56,7 @@ class GameService {
 
     static deleteGame(id) {
         return $.ajax({
-            url: this.url + `/${id}`,
+            test: this.test + `/${id}`,
             type: 'DELETE'
         });
     }
