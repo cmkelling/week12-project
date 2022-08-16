@@ -19,25 +19,34 @@ class Stats {
         this.rating = rating;
     }
 }
+
+//test data//
+const test = [
+    {
+        name: "Brew",
+        stats: ["Brew", 1, "1-4", "30min", "8/10"]
+    }
+]
+
 //API usage and setting up methods for later use.
 class GameService {
-    static url = '#'
+    static url = 'https://boardgames.free.beeceptor.com'
 
     static getAllGames() {
-        return $.get(this.url);
+        return $.get(this.test);
     }
 
     static getGame() {
-        return $.get(this.url + `/${id}`);
+        return $.get(this.test + `/${id}`);
     }
 
     static createGame(game) {
-        return $.post(this.url, game);
+        return $.post(this.test, game);
     }
 
     static updateGame(game) {
         return $.ajax({
-            url: this.url + `/${house._id}`,
+            test: this.test + `/${game.id}`,
             dataType: 'json',
             data: JSON.stringify(game),
             contentType: 'application/json',
