@@ -96,7 +96,18 @@ class DOMManager {
     }
 
     static deleteStats(gameId, statsId) {
-
+        for (let game of this.games) {
+            if (game._id == gameId) {
+                for (let stat of game.stats) {
+                    if (stat._id == statId) {
+                        game.stats.splice(game.stats.indexOf(stat), 1);
+                        GameService.updateGame(game).then(() => {
+                            return GameService.getAllGames()
+                        }).then((games) => this.render(games));
+                    }
+                }
+            }
+        }
     }
 
     static render(games) {
@@ -147,8 +158,8 @@ class DOMManager {
 }
 
 $('#create-new-game').on("click", () => {
-    DOMManager.createGame($('new-game-name').val());
-    $('#new-game-name').val('');
+    DOMManager.createGame($('#new-game').val());
+    $('#new-game').val('');
 });
 
 DOMManager.getAllGames();
