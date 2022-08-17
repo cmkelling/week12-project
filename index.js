@@ -43,20 +43,20 @@ class GameService {
 
     static getAllGames() {
         $currentGames.empty();
-        $currentGames.append(test.map(game => render(game)));
+        $currentGames.append(test.map(game => DOMManager.render(game)));
     };
 
     static createGame() {
         test.push({
             id:test[test.length - 1].id + 1,
-            name: $nameInput.val()
+            name: game.name.val()
         })
     }
 
     static deleteGame(gameId) {
         const indextoDelete = test.findIndex(game => game.id === gameId);
         test.splice(indextoDelete, 1);
-        render();
+        DOMManager.render();
     };
 };
 //Manages DOM manipulation to CRUD
@@ -87,15 +87,14 @@ class DOMManager {
         for (let game of this.games) {
             if (game._id == id) {
                 game.stats.push(new Stats(
-                    $(`#${game._id}-name`).val(), 
-                    $(`#${game._id}-rating`).val(), 
-                    $(`#${game._id}-no-players`).val(),
-                    $(`#${game._id}-times-played`).val(),
-                    $(`#${game._id}-avg-play-time`).val(),
+                    $(`#${game.id}-name`).val(), 
+                    $(`#${game.id}-rating`).val(), 
+                    $(`#${game.id}-no-players`).val(),
+                    $(`#${game.id}-times-played`).val(),
+                    $(`#${game.id}-avg-play-time`).val(),
                 ));
-                GameService.updateGame(game).then(() => {
-                    return GameService.getAllGames();
-                }).then((games) => this.render(games));
+                return GameService.getAllGames()
+                .then((games) => this.render(games));
             }
         }
     }
