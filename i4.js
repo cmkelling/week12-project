@@ -1,4 +1,5 @@
 
+//test array and place for new info to go.
 const puzzleList = [
     {
         id: 0,
@@ -39,7 +40,7 @@ $("<td/>").append(
 )
 )
 }
-
+//modal and variable info
 const puzzleModal = new bootstrap.Modal('#puzzle-name-modal')
 const $puzzleModalTitle = $("#puzzle-modal-title")
 const $nameInput = $("#name-input")
@@ -48,13 +49,10 @@ const $ratingInput = $("#rating-input")
 const $piecesInput = $("#pieces-input")
 
 let editPuzzleId = null;
-
+//buttons
 function onStartCreatePuzzle() {
-// open the modal
 puzzleModal.show();
-// change the title of the modal
 $puzzleModalTitle.text("New Puzzle")
-// clear the form
 $nameInput.val("")
 $completedInput.val("")
 $ratingInput.val("")
@@ -66,9 +64,8 @@ editPuzzleId = null;
 function onStartEditPuzzle(puzzleId) {
 // get the one that matches that id
 const puzzle = puzzleList.find(puzzle => puzzle.id === puzzleId);
-// open the modal
 puzzleModal.show();
-// change the title of the modal
+// change the title of the modal to editting
 $gpuzzleModalTitle.text("Edit " + puzzle.name)
 // Put the puzzle's current data in the form
 $nameInput.val(puzzle.name)
@@ -80,7 +77,7 @@ editpuzzleId = puzzle.id;
 }
 
 function onSavePuzzle() {
-// check if we're saving a create or an edit
+// check if saving a create or an edit
 if (editPuzzleId === null) {
 // get the name of the new puzzle
 // create a new puzzle and add it to the list

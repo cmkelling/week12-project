@@ -1,4 +1,5 @@
 
+//array for testing and adding new info.
 const gameList = [
             {
                 id: 0,
@@ -13,7 +14,7 @@ const gameList = [
                 rating: "9/10"
             }
 ]
-
+//render into html
 $(() => {
     renderGameList()
 })
@@ -36,7 +37,7 @@ function renderGame(game) {
         )
     )
 }
-
+//modal window pop-up & variables
 const gameModal = new bootstrap.Modal('#game-name-modal')
 const $gameModalTitle = $("#game-modal-title")
 const $nameInput = $("#name-input")
@@ -44,37 +45,34 @@ const $timesInput = $("#times-input")
 const $ratingInput = $("#rating-input")
 
 let editGameId = null;
-
+//buttons
 function onStartCreateGame() {
-    // open the modal
     gameModal.show();
-    // change the title of the modal
     $gameModalTitle.text("New Game")
     // clear the form
     $nameInput.val("")
     $timesInput.val("")
     $ratingInput.val("")
-    // Say that we're creating
+    // creating
     editGameId = null;
 }
 
 function onStartEditGame(gameId) {
     // get the one that matches that id
     const game = gameList.find(game => game.id === gameId);
-    // open the modal
     gameModal.show();
-    // change the title of the modal
+    // change the title of the modal to editting
     $gameModalTitle.text("Edit " + game.name)
     // Put the game's current data in the form
     $nameInput.val(game.name)
     $timesInput.val(game.timesPlayed)
     $ratingInput.val(game.rating)
-    // Say that we're editing this one
+    // editing
     editGameId = game.id;
 }
 
 function onSaveGame() {
-    // check if we're saving a create or an edit
+    // check if saving a create or an edit
     if (editGameId === null) {
         // get the name of the new game
         // create a new game and add it to the list
