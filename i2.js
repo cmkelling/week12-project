@@ -12,6 +12,10 @@ let gamesList = [
     }
 ];
 
+$(() => {
+    renderGamesList();
+});
+
 const $gamesContainer = $("#owned-games");
 
 function renderGamesList() {

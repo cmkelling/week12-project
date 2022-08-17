@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Game App</title>
+</head>
+
+<body>
+    <button class="btn btn-dark m-3" onclick="onStartCreateGame()">New Game</button>
+
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Name</th><th>Buttons</th></tr>
+        </thead>
+        <tbody id="games-container">
+
+        </tbody>
+    </table>
+
+    <div class="modal" tabindex="-1" id="game-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="game-modal-title" class="game-title">Edit Game</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit/Create Form -->
+                    <label for="name-edit-input" class="form-label">Name</label>
+                    <input type="text" id="name-input" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="onSaveGame()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="i3.js"></script>
+</body>
+
+</html>
