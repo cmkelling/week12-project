@@ -1,24 +1,24 @@
 //classes to set up the information for each game and stats it provides.
-class Game {
-    constructor(name){
-        this.name = name;
-        this.stats = [];
-    }
+// class Game {
+//     constructor(name){
+//         this.name = name;
+//         this.stats = [];
+//     }
 
-    addStat(name, timesPlayed, noPlayers, avgGamePlay, rating) {
-        this.Stats.push(new Stats(name, timesPlayed, noPlayers, avgGamePlay, rating))
-    }
-}
+//     addStat(name, timesPlayed, noPlayers, avgGamePlay, rating) {
+//         this.Stats.push(new Stats(name, timesPlayed, noPlayers, avgGamePlay, rating))
+//     }
+// }
 
-class Stats {
-    constructor(name, timesPlayed, noPlayers, avgGamePlay, rating){
-        this.name = name;
-        this.timesPlayed = timesPlayed;
-        this.noPlayers = noPlayers;
-        this.avgGamePlay = avgGamePlay;
-        this.rating = rating;
-    }
-}
+// class Stats {
+//     constructor(name, timesPlayed, noPlayers, avgGamePlay, rating){
+//         this.name = name;
+//         this.timesPlayed = timesPlayed;
+//         this.noPlayers = noPlayers;
+//         this.avgGamePlay = avgGamePlay;
+//         this.rating = rating;
+//     }
+// }
 
 //test data//--Need Help Here
 var test = [
@@ -101,9 +101,9 @@ class DOMManager {
 
     static deleteStats(gameId, statsId) {
         for (let game of this.games) {
-            if (game._id == gameId) {
+            if (game.id == gameId) {
                 for (let stat of game.stats) {
-                    if (stat._id == statId) {
+                    if (stat.id == statId) {
                         game.stats.splice(game.stats.indexOf(stat), 1);
                             return GameService.getAllGames()
                             .then((games) => this.render(games));
@@ -113,7 +113,7 @@ class DOMManager {
         }
     }
 
-    static render(games) {
+    render(games) {
         this.games = games;
         $('#owned-games').empty();
         for (let game of games) {
