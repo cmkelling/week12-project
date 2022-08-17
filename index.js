@@ -21,48 +21,44 @@ class Stats {
 }
 
 //test data//--Need Help Here
-const test = [
+var test = [
     {
+        id: 0,
         name: "Brew",
         stats: ["Brew", 1, "1-4", "30min", "8/10"]
     }
 ]
 
 //For Rendering?--Need Help Here
+
+$(() => {
+    DOMManager.render()
+});
+
+const $currentGames = $('#current-games');
+
+
+
 class GameService {
-    static url = 'https://boardgames.free.beeceptor.com'
 
     static getAllGames() {
-        return $.get(this.test);
+        $currentGames.empty();
+        $currentGames.append(test.map(game => render(game)));
+    };
+
+    static createGame() {
+        test.push({
+            id:test[test.length - 1].id + 1,
+            name: $nameInput.val()
+        })
     }
 
-    static getGame() {
-        return $.get(this.test + `/${id}`);
-    }
-
-    static createGame(game) {
-        return $.post(this.test, game);
-    }
-
-    static updateGame(game) {
-        return $.ajax({
-            test: this.test + `/${game.id}`,
-            dataType: 'json',
-            data: JSON.stringify(game),
-            contentType: 'application/json',
-            type: 'PUT'
-        });
-    }
-
-    static deleteGame(id) {
-        return $.ajax({
-            test: this.test + `/${id}`,
-            type: 'DELETE'
-        });
-    }
-
-
-}
+    static deleteGame(gameId) {
+        const indextoDelete = test.findIndex(game => game.id === gameId);
+        test.splice(indextoDelete, 1);
+        render();
+    };
+};
 //Manages DOM manipulation to CRUD
 class DOMManager {
     static games;
@@ -110,9 +106,8 @@ class DOMManager {
                 for (let stat of game.stats) {
                     if (stat._id == statId) {
                         game.stats.splice(game.stats.indexOf(stat), 1);
-                        GameService.updateGame(game).then(() => {
                             return GameService.getAllGames()
-                        }).then((games) => this.render(games));
+                            .then((games) => this.render(games));
                     }
                 }
             }
@@ -124,27 +119,27 @@ class DOMManager {
         $('#owned-games').empty();
         for (let game of games) {
             $('#owned-games').prepend(
-                `<div id = "${game._id}" class = card>
+                `<div id = "${game.id}" class = card>
                     <div class = "card-header">
                         <h4> ${game.name}</h4>
-                        <button class = "btn btn-primary" onclick = "DOMManager.deleteGame('${game._id}')">Delete</button>
+                        <button class = "btn btn-primary" onclick = "DOMManager.deleteGame('${game.id}')">Delete</button>
                     </div>
                     <div class = "card-body">
                         <div class = "container card">
                             <form class="container card-body" id="form">
-                                <label class="form-label" for="${game._id}-name">Game Name</label>
-                                <input type="text" id="${game._id}-name" placeholder="Name of Game">
-                                <label class="form-label" for="${game._id}-rating">Game Rating</label>
+                                <label class="form-label" for="${game.id}-name">Game Name</label>
+                                <input type="text" id="${game.id}-name" placeholder="Name of Game">
+                                <label class="form-label" for="${game.id}-rating">Game Rating</label>
                                 <input type="text" id="${game._id}-rating" placeholder="Out of 10">
-                                <label class="form-label" for="${game._id}-no-players">Number of Players Allowed</label>
-                                <input type="text" id="${game._id}-no-players" placeholder="Number of players">
+                                <label class="form-label" for="${game.id}-no-players">Number of Players Allowed</label>
+                                <input type="text" id="${game.id}-no-players" placeholder="Number of players">
                                 <br><br>
                                 <label class="form-label" for="Times Played">Times Played</label>
-                                <input type="number" name="Times Played" id="${game._id}-times-played">
+                                <input type="number" name="Times Played" id="${game.id}-times-played">
                                 <label class="form-label" for="Avg Time">Average Game Play Time</label>
-                                <input type="text" name="Avg Time" id="${game._id}-avg-play-time" placeholder="hours/minutes">
+                                <input type="text" name="Avg Time" id="${game.id}-avg-play-time" placeholder="hours/minutes">
                                 <br><br>
-                                <input id = "${game._id}-new-stats" class="btn btn-dark form-control" type="button" onclick = "DOMManager.addStats('${game._id})">
+                                <input id = "${game.id}-new-stats" class="btn btn-dark form-control" type="button" onclick = "DOMManager.addStats('${game.id})">
                             </form>
                         </div>
                     </div>
@@ -152,14 +147,14 @@ class DOMManager {
             );
 
             for(let stat of game.stats) {
-                $(`#${game._id}`).find('card-body').append(
+                $(`#${game.id}`).find('card-body').append(
                     `<p>
-                        <span id = "name-${stat._id}><strong>Name: </strong> ${stat.name}</span>
-                        <span id = "rating-${stat._id}><strong>Rating: </strong> ${stat.rating}</span>
-                        <span id = "players-${stat._id}><strong>Number of Players: </strong> ${stat.noPlayers}</span>
-                        <span id = "times-${stat._id}><strong>Times Played: </strong> ${stat.timesPlayed}</span>
-                        <span id = "avg-${stat._id}><strong>Average Play Time: </strong> ${stat.avgGamePlay}</span>
-                        <button class = "btn btn-primary" onclick = "DOMManager.deleteStats('${game._id}', '${stat._id}')">Delete Stats</button>`
+                        <span id = "name-${stat.id}><strong>Name: </strong> ${stat.name}</span>
+                        <span id = "rating-${stat.id}><strong>Rating: </strong> ${stat.rating}</span>
+                        <span id = "players-${stat.id}><strong>Number of Players: </strong> ${stat.noPlayers}</span>
+                        <span id = "times-${stat.id}><strong>Times Played: </strong> ${stat.timesPlayed}</span>
+                        <span id = "avg-${stat.id}><strong>Average Play Time: </strong> ${stat.avgGamePlay}</span>
+                        <button class = "btn btn-primary" onclick = "DOMManager.deleteStats('${game.id}', '${stat.id}')">Delete Stats</button>`
                 )
             }
         }
