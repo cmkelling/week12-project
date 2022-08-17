@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Puzzle App</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Game Stats</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="BoardGame.html">Board Games</a>
+              <a class="nav-link" href="puzzles.html">Puzzles</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <br>
+    <h1>Puzzles</h1>
+    <button class="btn btn-dark m-3" onclick="onStartCreatePuzzle()">New Puzzle</button>
+
+    <table class="table table-success table-striped">
+        <thead>
+            <tr><th>Name</th><th>Pieces</th><th>Completed?</th><th>Rating</th><th>Buttons</th></tr>
+        </thead>
+        <tbody id="puzzles-container">
+
+        </tbody>
+    </table>
+
+    <div class="modal" tabindex="-1" id="puzzle-name-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="puzzle-modal-title" class="puzzle-title">Edit Puzzle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit/Create Form -->
+                    <label for="name-edit-input" class="form-label">Name</label>
+                    <input type="text" id="name-input" class="form-control" />
+                    <label for="pieces-edit-input" class="form-label">Pieces</label>
+                    <input type="number" id="pieces-input" class="form-control" />
+                    <label for="complete-edit-input" class="form-label">Completed?</label>
+                    <input type="text" id="complete-input" class="form-control" />
+                    <label for="rating-edit-input" class="form-label">Rating</label>
+                    <input type="text" id="rating-input" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="onSavePuzzle()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="i4.js"></script>
+</body>
+
+</html>

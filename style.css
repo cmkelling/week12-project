@@ -11,6 +11,6 @@ h1, h3{
     font-family: Luminari;
 }
 
-label, .btn, .navbar{
+label, .btn, .navbar, .modal, .table{
     font-family: Copperplate;
 }
